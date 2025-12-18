@@ -1,0 +1,48 @@
+{
+  "tab.createtreadmill.title": "Create: Hamsterwheel",
+
+  "block.createtreadmill.treadmill": "Беговая дорожка",
+  "task.createtreadmill.use_treadmill": "Бегать на дорожке",
+  "task.createtreadmill.use_treadmill.desc": "Горничная будет бегать на беговой дорожке",
+  "tip.createtreadmill.speedup": "Ускорение, %s секунд осталось",
+  "tip.createtreadmill.break": "Побег через %s секунд",
+
+  "createtreadmill.ponder.treadmill_run.header": "Использую беговую дорожку",
+  "createtreadmill.ponder.treadmill_run.text_1": "Это беговая дорожка.",
+  "createtreadmill.ponder.treadmill_run.text_2": "Существа могут бегать на ней, чтобы генерировать энергию.",
+  "createtreadmill.ponder.treadmill_run.text_3": "Игрок может привязать существо поводком.",
+  "createtreadmill.ponder.treadmill_run.text_4": "Они пытаются сопротивляться...",
+
+  "createtreadmill.ponder.treadmill_fly.header": "Скинь!",
+  "createtreadmill.ponder.treadmill_fly.text_1": "Нагрузка на этой беговой дорожке обращена...",
+  "createtreadmill.ponder.treadmill_fly.text_2": "Существа стоящие смирно будут скинуты с нее.",
+  "createtreadmill.ponder.treadmill_fly.text_3": "Я не буду двигать существо... Представь, что жителя скинуло.",
+
+  "createtreadmill.ponder.treadmill_speedup.header": "Увеличение скорости",
+  "createtreadmill.ponder.treadmill_speedup.text_1": "32 об/мин",
+  "createtreadmill.ponder.treadmill_speedup.text_2": "Когда бегущее существо бьют, беговая дорожка ускоряется на минуту (двойная скорость, не стакается).",
+  "createtreadmill.ponder.treadmill_speedup.text_3": "64 об/мин",
+  "createtreadmill.ponder.treadmill_speedup.text_4": "Попытка убежать у существа в приоритете...",
+
+  "createtreadmill.ponder.treadmill_maid.header": "Совместимость с Touhou Little Maid",
+  "createtreadmill.ponder.treadmill_maid.text_1": "Если установлен Touhou Little Maid, вы можете назначить задание 'Бегать на дорожке'.",
+  "createtreadmill.ponder.treadmill_maid.text_2": "Конечно, предыдущие механики всё еще работают...",
+  "createtreadmill.ponder.treadmill_maid.text_3": "И горничные не будут убегать так сразу...",
+
+  "advancement.createtreadmill.run_to_die": "Капиталист",
+  "advancement.createtreadmill.run_to_die.desc": "Убейте существо переутомление на беговой дорожке. (Как жестоко...)\n§7(Скрытое достижение)",
+
+  "config.createtreadmill.title": "Настройки Create: Hamsterwheel",
+  "config.createtreadmill.stress": "Нагрузка беговой дорожки",
+  "config.createtreadmill.stress.tip": "Устанавливает нагрузку беговой дорожки",
+  "config.createtreadmill.base_speed": "Базовая скорость беговой дорожки",
+  "config.createtreadmill.base_speed.tip": "Устанавливает базовую скорость беговой дорожки",
+  "config.createtreadmill.drop_it": "Скидывание беговой дорожки",
+  "config.createtreadmill.drop_it.tip": "Может ли беговая дорожка скидывать существ (когда запитано в обратную сторону)",
+  "config.createtreadmill.break": "Побег существ",
+  "config.createtreadmill.break.tip": "Могут ли существа убегать с беговой дорожки",
+  "config.createtreadmill.speed_up": "Увеличение скорости",
+  "config.createtreadmill.speed_up.tip": "Дает ли удар по существу увеличение скорости",
+
+  "config.jade.plugin_createtreadmill.treadmill_provider": "Беговая дорожка"
+}

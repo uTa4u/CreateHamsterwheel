@@ -53,7 +53,7 @@ public class TreadmillSensor extends Sensor<EntityMaid> {
 
                         mutablePos.set(centerPos.getX() + dx, centerPos.getY() + dy, centerPos.getZ() + dz);
 
-                        if (level.getBlockState(mutablePos).is(CreateTreadmillMod.TREADMILL_BLOCK) &&
+                        if (level.getBlockState(mutablePos).is(CreateTreadmillMod.TREADMILL_BLOCK.get()) &&
                                 isEmpty(level, mutablePos)) {
                             return mutablePos.immutable();
                         }

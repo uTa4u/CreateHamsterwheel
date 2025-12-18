@@ -12,7 +12,6 @@ import static com.gly091020.CreateTreadmill.CreateTreadmillMod.CONFIG;
 
 public class ClothConfigScreenGetter {
     public static Screen get(Screen parent){
-        // bro还是喜欢用cloth config api
         var builder = ConfigBuilder.create();
         builder.setTitle(Component.translatable("config.createtreadmill.title"));
         builder.setParentScreen(parent);

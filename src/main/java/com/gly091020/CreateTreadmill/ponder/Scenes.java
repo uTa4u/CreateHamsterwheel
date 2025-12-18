@@ -9,13 +9,11 @@ import net.createmod.ponder.api.scene.Selection;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.component.ResolvableProfile;
 
 public class Scenes {
     public static void treadmillRun(SceneBuilder builder, SceneBuildingUtil util){
@@ -43,11 +41,6 @@ public class Scenes {
             var e = level.getBlockEntity(util.grid().at(2, 1, 3));
             if(e instanceof TreadmillBlockEntity treadmillBlockEntity){
                 treadmillBlockEntity.setOnTreadmillEntity(entity);
-            }
-            if(CreateTreadmillMod.isCreator()){
-                ItemStack playerHand = new ItemStack(Items.PLAYER_HEAD, 1);
-                playerHand.set(DataComponents.PROFILE, new ResolvableProfile(Minecraft.getInstance().getGameProfile()));
-                entity.setItemSlot(EquipmentSlot.HEAD, playerHand);
             }
             return entity;
         });
@@ -132,11 +125,6 @@ public class Scenes {
             var e = level.getBlockEntity(util.grid().at(2, 1, 3));
             if(e instanceof TreadmillBlockEntity treadmillBlockEntity){
                 treadmillBlockEntity.setOnTreadmillEntity(entity);
-            }
-            if(CreateTreadmillMod.isCreator()){
-                ItemStack playerHand = new ItemStack(Items.PLAYER_HEAD, 1);
-                playerHand.set(DataComponents.PROFILE, new ResolvableProfile(Minecraft.getInstance().getGameProfile()));
-                entity.setItemSlot(EquipmentSlot.HEAD, playerHand);
             }
             return entity;
         });

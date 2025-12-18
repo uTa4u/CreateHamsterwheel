@@ -6,7 +6,10 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Locale;
 
 public enum Part implements StringRepresentable {
-    TOP_FRONT, TOP_BACK, BOTTOM_FRONT, BOTTOM_BACK;
+    TOP_FRONT,
+    TOP_BACK,
+    BOTTOM_FRONT,
+    BOTTOM_BACK;
 
     @Override
     public @NotNull String getSerializedName() {

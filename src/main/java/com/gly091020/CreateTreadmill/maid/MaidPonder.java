@@ -14,11 +14,11 @@ import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 
 public class MaidPonder {
-    public static void registry(MultiSceneBuilder builder){
+    public static void registry(MultiSceneBuilder builder) {
         builder.addStoryBoard("treadmill/run", MaidPonder::treadmillMaid);
     }
 
-    public static void treadmillMaid(SceneBuilder builder, SceneBuildingUtil util){
+    public static void treadmillMaid(SceneBuilder builder, SceneBuildingUtil util) {
         CreateSceneBuilder scene = new CreateSceneBuilder(builder);
         scene.title("treadmill_maid", "跑步机的使用");
         scene.configureBasePlate(0, 0, 5);
@@ -40,12 +40,8 @@ public class MaidPonder {
             var entity = new EntityMaid(level);
             entity.setPos(1, 1, 1);
             var e = level.getBlockEntity(util.grid().at(2, 1, 3));
-            if(e instanceof TreadmillBlockEntity treadmillBlockEntity){
+            if (e instanceof TreadmillBlockEntity treadmillBlockEntity) {
                 treadmillBlockEntity.setOnTreadmillEntity(entity);
-            }
-            if(CreateTreadmillMod.isCreator()){
-                entity.setCustomName(Component.literal(String.format("=>%s",
-                        Minecraft.getInstance().getGameProfile().getName())));
             }
             entity.walkAnimation.setSpeed(3);
             return entity;

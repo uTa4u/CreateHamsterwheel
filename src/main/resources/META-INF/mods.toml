@@ -1,0 +1,41 @@
+modLoader="javafml" #mandatory
+loaderVersion="${loader_version_range}" #mandatory
+license="${mod_license}"
+issueTrackerURL="https://github.com/uTa4u/CreateHamsterwheel/issues" #optional
+
+[[mods]] #mandatory
+modId="${mod_id}" #mandatory
+version="${mod_version}" #mandatory
+displayName="${mod_name}" #mandatory
+displayURL="https://github.com/uTa4u/CreateHamsterwheel" #optional
+logoFile="logo.png" #optional
+authors="${mod_authors}" #optional
+description='''${mod_description}'''
+
+[[dependencies.${mod_id}]] #optional
+    modId="create" #mandatory
+    mandatory=true #mandatory
+    versionRange="[0,)" #mandatory
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.${mod_id}]] #optional
+    modId="touhou_little_maid" #mandatory
+    mandatory=true #mandatory
+    versionRange="[0,)" #mandatory
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.${mod_id}]] #optional
+    modId="forge" #mandatory
+    mandatory=true #mandatory
+    versionRange="${forge_version_range}" #mandatory
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="${minecraft_version_range}"
+    ordering="NONE"
+    side="BOTH"
