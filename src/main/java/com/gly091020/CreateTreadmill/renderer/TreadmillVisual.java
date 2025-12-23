@@ -1,5 +1,6 @@
 package com.gly091020.CreateTreadmill.renderer;
 
+import com.gly091020.CreateTreadmill.CreateTreadmillClient;
 import com.gly091020.CreateTreadmill.CreateTreadmillMod;
 import com.gly091020.CreateTreadmill.Part;
 import com.gly091020.CreateTreadmill.block.TreadmillBlock;
@@ -66,8 +67,8 @@ public class TreadmillVisual extends KineticBlockEntityVisual<TreadmillBlockEnti
         var p = getVisualPosition().above(1);
 
 
-        belt = instancerProvider().instancer(AllInstanceTypes.SCROLLING, Models.partial(CreateTreadmillMod.BELT_MODEL)).createInstance();
-        belt.setSpriteShift(CreateTreadmillMod.BELT_SHIFT, 1f, 64/256f * 16)
+        belt = instancerProvider().instancer(AllInstanceTypes.SCROLLING, Models.partial(CreateTreadmillClient.BELT_MODEL)).createInstance();
+        belt.setSpriteShift(CreateTreadmillClient.BELT_SHIFT, 1f, 64/256f * 16)
                 .position(p.getX() + xp, p.getY(), p.getZ() + zp)
                 .rotation(new Quaternionf().rotationXYZ(0, d * Mth.DEG_TO_RAD, 0))
                 .speed(0, 0)

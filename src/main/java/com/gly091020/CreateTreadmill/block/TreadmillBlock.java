@@ -139,7 +139,7 @@ public class TreadmillBlock extends HorizontalKineticBlock implements IBE<Treadm
                 return InteractionResult.sidedSuccess(level.isClientSide);
             }
             for (Entity entity1 : level.getEntities(null, new AABB(pos).inflate(10))) {
-                if (entity1 instanceof Mob mob && mob.canBeLeashed(player) && mob.getLeashHolder() != null && mob.getLeashHolder().is(player)) {
+                if (entity1 instanceof Mob mob && mob.getLeashHolder() != null && mob.getLeashHolder().is(player)) {
                     blockEntity.setOnTreadmillEntity(mob);
                     mob.dropLeash(true, true);
                     blockEntity.setEntityTimer(20 * 60);

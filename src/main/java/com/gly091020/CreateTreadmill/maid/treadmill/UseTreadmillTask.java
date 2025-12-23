@@ -15,7 +15,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class UseTreadmillTask implements IMaidTask {
-    public static final ResourceLocation UID = ResourceLocation.fromNamespaceAndPath(CreateTreadmillMod.MOD_ID, "use_treadmill");
+    public static final ResourceLocation UID = new ResourceLocation(CreateTreadmillMod.MOD_ID, "use_treadmill");
 
     @Override
     public @NotNull ResourceLocation getUid() {

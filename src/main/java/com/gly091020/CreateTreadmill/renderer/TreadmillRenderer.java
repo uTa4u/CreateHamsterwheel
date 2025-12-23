@@ -1,5 +1,6 @@
 package com.gly091020.CreateTreadmill.renderer;
 
+import com.gly091020.CreateTreadmill.CreateTreadmillClient;
 import com.gly091020.CreateTreadmill.CreateTreadmillMod;
 import com.gly091020.CreateTreadmill.Part;
 import com.gly091020.CreateTreadmill.block.TreadmillBlock;
@@ -49,8 +50,8 @@ public class TreadmillRenderer extends KineticBlockEntityRenderer<TreadmillBlock
         super.renderSafe(be, partialTicks, ms, buffer, light, overlay);
         if(!VisualizationManager.supportsVisualization(be.getLevel())){
             var facing = be.getBlockState().getValue(TreadmillBlock.HORIZONTAL_FACING);
-            SpriteShiftEntry spriteShift = CreateTreadmillMod.BELT_SHIFT;
-            SuperByteBuffer beltBuffer = CachedBuffers.partial(CreateTreadmillMod.BELT_MODEL, be.getBlockState())
+            SpriteShiftEntry spriteShift = CreateTreadmillClient.BELT_SHIFT;
+            SuperByteBuffer beltBuffer = CachedBuffers.partial(CreateTreadmillClient.BELT_MODEL, be.getBlockState())
                     .light(light);
             PoseStack localTransforms = new PoseStack();
             var msr = TransformStack.of(localTransforms);

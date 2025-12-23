@@ -2,11 +2,9 @@ package com.gly091020.CreateTreadmill;
 
 import com.gly091020.CreateTreadmill.block.TreadmillBlock;
 import com.gly091020.CreateTreadmill.block.TreadmillBlockEntity;
-import com.gly091020.CreateTreadmill.config.ClothConfigScreenGetter;
 import com.gly091020.CreateTreadmill.config.TreadmillConfig;
 import com.gly091020.CreateTreadmill.item.TreadmillItem;
 import com.gly091020.CreateTreadmill.maid.MaidPlugin;
-import com.gly091020.CreateTreadmill.ponder.TreadmillPonderPlugin;
 import com.gly091020.CreateTreadmill.renderer.TreadmillRenderer;
 import com.gly091020.CreateTreadmill.renderer.TreadmillVisual;
 import com.mojang.logging.LogUtils;
@@ -17,11 +15,6 @@ import com.simibubi.create.foundation.data.SharedProperties;
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import com.tterrag.registrate.util.entry.ItemEntry;
-import dev.engine_room.flywheel.lib.model.baked.PartialModel;
-import net.createmod.catnip.config.ui.BaseConfigScreen;
-import net.createmod.catnip.render.SpriteShiftEntry;
-import net.createmod.catnip.render.SpriteShifter;
-import net.createmod.ponder.foundation.PonderIndex;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -30,18 +23,18 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.ConfigScreenHandler;
 import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModList;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fml.loading.FMLLoader;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 import org.slf4j.Logger;
@@ -85,14 +78,12 @@ public class CreateTreadmillMod {
             .renderer(() -> TreadmillRenderer::new)
             .validBlock(TREADMILL_BLOCK)
             .register();
-    public static final PartialModel BELT_MODEL = PartialModel.of(ResourceLocation.fromNamespaceAndPath(MOD_ID, "block/belt"));
-    public static final SpriteShiftEntry BELT_SHIFT = SpriteShifter.get(ResourceLocation.fromNamespaceAndPath(MOD_ID, "block/belt"), ResourceLocation.fromNamespaceAndPath(MOD_ID, "block/belt_shift"));
 
     public static final Map<Integer, LivingEntity> WALKING_ENTITY = new HashMap<>();
 
-    public CreateTreadmillMod(FMLJavaModLoadingContext context) {
-        var modBus = context.getModEventBus();
-        var container = context.getContainer();
+    public CreateTreadmillMod() {
+        ModLoadingContext context = ModLoadingContext.get();
+        IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         // Using create's weird config system. Just use forge's config bruh
         var specPair = new ForgeConfigSpec.Builder().configure((builder) -> {
@@ -109,22 +100,14 @@ public class CreateTreadmillMod {
         if (ModList.get().isLoaded("touhou_little_maid")) {
             MaidPlugin.registryData(modBus);
         }
-        container.registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class, () -> new ConfigScreenHandler.ConfigScreenFactory(
-                (parent) -> {
-                    if (ModList.get().isLoaded("cloth_config")) {
-                        return ClothConfigScreenGetter.get(parent);
-                    }
-                    return new BaseConfigScreen(parent, MOD_ID);
-                }
-        ));
 
-        if (FMLLoader.getDist() == Dist.CLIENT) {
-            modBus.addListener((FMLClientSetupEvent event) -> PonderIndex.addPlugin(new TreadmillPonderPlugin()));
-        }
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> CreateTreadmillClient.onCtorClient(context, modBus));
+
     }
 
-    @EventBusSubscriber
-    public static class HandleEvent {
+    @EventBusSubscriber(value = Dist.CLIENT)
+    public static class ClientEventHandler {
+
         @SubscribeEvent
         public static void onRenderEntity(RenderLivingEvent.Pre<?, ?> event) {
             if (WALKING_ENTITY.containsKey(event.getEntity().getId()) && !(event.getEntity() instanceof Player)) {
@@ -136,6 +119,10 @@ public class CreateTreadmillMod {
                 event.getEntity().walkAnimation.setSpeed(speed);
             }
         }
+    }
+
+    @EventBusSubscriber
+    public static class CommonEventHandler {
 
         @SubscribeEvent
         public static void onEntityDie(LivingDeathEvent deathEvent) {
@@ -144,7 +131,7 @@ public class CreateTreadmillMod {
                 var last = entity.getLastAttacker();
                 if (last instanceof ServerPlayer player) {
                     var manager = player.server.getAdvancements();
-                    var adv = manager.getAdvancement(ResourceLocation.fromNamespaceAndPath(MOD_ID, "run_to_die"));
+                    var adv = manager.getAdvancement(new ResourceLocation(MOD_ID, "run_to_die"));
                     if (adv != null) {
                         player.getAdvancements().award(adv, "0");
                     }
