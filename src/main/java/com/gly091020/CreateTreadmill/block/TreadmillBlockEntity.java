@@ -58,19 +58,22 @@ public class TreadmillBlockEntity extends GeneratingKineticBlockEntity {
             }
             setPos();
             speedUp();
+            // Has to be done for the player too, because deltaMovement is clientside only.
+            // Otherwise would need to send a custom packet, but I'm too lazy for that.
+            onTreadmillEntity.setDeltaMovement(Vec3.atLowerCornerOf(getBlockState().getValue(HorizontalKineticBlock.HORIZONTAL_FACING).getNormal()).multiply(0.3f, 0, 0.3f));
             if (onTreadmillEntity instanceof Player player) {
+                onTreadmillEntity.hurtMarked = true;
                 if (player.isShiftKeyDown() || player.getPose() == Pose.SITTING) {
                     setOnTreadmillEntity(null);
                 }
             } else {
-                onTreadmillEntity.setDeltaMovement(Vec3.atLowerCornerOf(getBlockState().getValue(HorizontalKineticBlock.HORIZONTAL_FACING).getNormal()).multiply(0.3f, 0, 0.3f));
                 onTreadmillEntity.lookAt(EntityAnchorArgument.Anchor.EYES, onTreadmillEntity.getEyePosition().relative(getBlockState().getValue(HorizontalKineticBlock.HORIZONTAL_FACING), 1));
                 onTreadmillEntity.setPose(Pose.STANDING);
                 if (onTreadmillEntity instanceof TamableAnimal tamableAnimal) {
                     tamableAnimal.setInSittingPose(false);
                 }
-                lazyTick();
             }
+            lazyTick();
             dropIt();
         }
         super.tick();
